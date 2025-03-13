@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { FaInstagram, FaFacebookF } from 'react-icons/fa';
-import { Container, Row, Col, Navbar, Nav, Card, Button, Image } from 'react-bootstrap';
+import { Container, Row, Col, Navbar, Nav, Card, Button, Image, Form } from 'react-bootstrap';
 
 const Divider = () => (
   <hr style={{ borderTop: '1px solid #e1e1e1', margin: '20px 0' }} />
 );
 
 const HomePage = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (formData.name && formData.email) {
+      // Handle form submission logic (e.g., send data to backend or API)
+      console.log('Form Submitted:', formData);
+    } else {
+      alert('Please fill in both the Name and Email fields.');
+    }
+  };
+
   return (
     <div style={{ backgroundColor: 'rgba(202, 179, 155, 0.527)', color: 'rgb(54, 43, 42)', fontFamily: 'Arial, sans-serif' }}>
       {/* Header */}
@@ -20,6 +40,38 @@ const HomePage = () => {
             <Nav.Link as={RouterLink} to="/our-story" style={{ fontWeight: 'bold', color: 'rgb(18, 45, 18)' }}>Our Story</Nav.Link>
             <Nav.Link as={RouterLink} to="/menu" style={{ fontWeight: 'bold', color: 'rgb(18, 45, 18)' }}>Menu</Nav.Link>
           </Nav>
+          {/* Subscribe Form */}
+          <Form inline className="d-flex align-items-center" onSubmit={handleSubmit}>
+            <Form.Control
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              value={formData.name}
+              onChange={handleChange}
+              style={{
+                marginRight: '10px',
+                borderRadius: '20px',
+                border: '1px solid #ccc',
+                padding: '5px 10px',
+              }}
+              required
+            />
+            <Form.Control
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              style={{
+                marginRight: '10px',
+                borderRadius: '20px',
+                border: '1px solid #ccc',
+                padding: '5px 10px',
+              }}
+              required
+            />
+            <Button variant="dark" type="submit" style={{ borderRadius: '20px' }}>Subscribe</Button>
+          </Form>
         </Container>
       </Navbar>
 
