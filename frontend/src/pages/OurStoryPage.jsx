@@ -8,9 +8,14 @@ function OurStoryPage() {
       fontFamily: 'Futura, sans-serif',
       margin: 0,
       paddingTop: '100px',
-      backgroundColor: 'rgb(245, 245, 245)',
+      backgroundImage: "url(https://png.pngtree.com/png-vector/20240615/ourmid/pngtree-a-close-up-capture-of-texture-rich-freshly-roasted-coffee-beans-png-image_12220937.png)", 
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',  // Makes the background fixed during scroll
       color: 'rgb(18, 45, 18)',
       textAlign: 'center',
+      minHeight: '100vh',  // Ensures the background covers the full screen
+      position: 'relative',  // Needed for positioning the overlay
     },
     header: {
       padding: '20px',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Container, Row, Col, Nav, Navbar, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Nav, Navbar, Card } from 'react-bootstrap';
 
 const Divider = () => (
   <hr style={{ borderTop: '1px solid #e1e1e1', margin: '20px 0' }} />

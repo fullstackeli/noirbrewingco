@@ -11,7 +11,6 @@ function App() {
           <Navbar.Brand href="/">Noir Brewing Co.</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/events">Events</Nav.Link>
             <Nav.Link href="/menu">Menu</Nav.Link>
             <Nav.Link href="/our-story">Our Story</Nav.Link>
             <Nav.Link href="/shop">Shop</Nav.Link>

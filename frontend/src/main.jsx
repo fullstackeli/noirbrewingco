@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import EventsPage from "./pages/EventsPage";
 import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MenuPage";
 import OurStoryPage from "./pages/OurStoryPage";
@@ -17,10 +16,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />
-      },
-      {
-        path: "events",
-        element: <EventsPage />
       },
       {
         path: "menu",
