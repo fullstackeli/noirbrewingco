@@ -18,7 +18,7 @@ const MenuPage = () => {
             <Nav.Link as={RouterLink} to="/shop" style={{ fontWeight: 'bold', color: 'rgb(18, 45, 18)' }}>Shop</Nav.Link>
             <Nav.Link as={RouterLink} to="/our-story" style={{ fontWeight: 'bold', color: 'rgb(18, 45, 18)' }}>Our Story</Nav.Link>
             <Nav.Link as={RouterLink} to="/menu" style={{ fontWeight: 'bold', color: 'rgb(18, 45, 18)', textDecoration: 'underline' }}>Menu</Nav.Link>
-            <Nav.Link as={RouterLink} to="/events" style={{ fontWeight: 'bold', color: 'rgb(18, 45, 18)' }}>Happenings</Nav.Link>
+
           </Nav>
         </Container>
       </Navbar>

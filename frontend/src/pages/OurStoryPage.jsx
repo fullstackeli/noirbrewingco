@@ -113,7 +113,7 @@ function OurStoryPage() {
             <Nav.Link as={RouterLink} to="/shop" style={styles.link}>Shop</Nav.Link>
             <Nav.Link as={RouterLink} to="/our-story" style={styles.link}>Our Story</Nav.Link>
             <Nav.Link as={RouterLink} to="/menu" style={styles.link}>Menu</Nav.Link>
-            <Nav.Link as={RouterLink} to="/events" style={styles.link}>Happenings</Nav.Link>
+
           </Nav>
         </Navbar>
       </header>

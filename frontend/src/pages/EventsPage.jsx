@@ -45,7 +45,6 @@ const EventsPage = () => {
           <RouterLink to="/shop" style={styles.navLink}>Shop</RouterLink>
           <RouterLink to="/our-story" style={styles.navLink}>Our Story</RouterLink>
           <RouterLink to="/menu" style={styles.navLink}>Menu</RouterLink>
-          <RouterLink to="/events" style={styles.navLink}>Happenings</RouterLink>
         </nav>
       </header>
 

@@ -113,7 +113,6 @@ const ShopPage = () => {
           <RouterLink to="/shop" style={{...styles.navLink, textDecoration: 'underline'}}>Shop</RouterLink>
           <RouterLink to="/our-story" style={styles.navLink}>Our Story</RouterLink>
           <RouterLink to="/menu" style={styles.navLink}>Menu</RouterLink>
-          <RouterLink to="/events" style={styles.navLink}>Happenings</RouterLink>
         </div>
         <div>
           <i className="fas fa-shopping-cart"></i>
