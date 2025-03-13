@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 function _nullishCoalesce(lhs, rhsFn) {
   if (lhs != null) {
     return lhs
@@ -5,6 +7,7 @@ function _nullishCoalesce(lhs, rhsFn) {
     return rhsFn()
   }
 }
+
 function _optionalChain(ops) {
   let lastAccessLHS = undefined
   let value = ops[0]
@@ -26,8 +29,6 @@ function _optionalChain(ops) {
   }
   return value
 }
-import { Slider as ChakraSlider, For, HStack } from '@chakra-ui/react'
-import * as React from 'react'
 
 export const Slider = React.forwardRef(function Slider(props, ref) {
   const { marks: marksProp, label, showValue, ...rest } = props
@@ -54,54 +55,56 @@ export const Slider = React.forwardRef(function Slider(props, ref) {
   ])
 
   return (
-    <ChakraSlider.Root ref={ref} thumbAlignment='center' {...rest}>
-      {label && !showValue && <ChakraSlider.Label>{label}</ChakraSlider.Label>}
+    <div className="slider-container" ref={ref} {...rest}>
+      {label && !showValue && <label className="slider-label">{label}</label>}
       {label && showValue && (
-        <HStack justify='space-between'>
-          <ChakraSlider.Label>{label}</ChakraSlider.Label>
-          <ChakraSlider.ValueText />
-        </HStack>
+        <div className="d-flex justify-content-between">
+          <label className="slider-label">{label}</label>
+          <span>{value}</span>
+        </div>
       )}
-      <ChakraSlider.Control data-has-mark-label={hasMarkLabel || undefined}>
-        <ChakraSlider.Track>
-          <ChakraSlider.Range />
-        </ChakraSlider.Track>
-        <SliderThumbs value={value} />
-        <SliderMarks marks={marks} />
-      </ChakraSlider.Control>
-    </ChakraSlider.Root>
+
+      <div className="slider-track">
+        <input
+          type="range"
+          className="form-range"
+          value={value}
+          {...rest}
+        />
+        {hasMarkLabel && (
+          <div className="slider-marks">
+            {marks.map((mark, index) => {
+              const markValue = typeof mark === 'number' ? mark : mark.value
+              const label = typeof mark === 'number' ? undefined : mark.label
+              return (
+                <div key={index} className="slider-mark" style={{ left: `${markValue}%` }}>
+                  {label && <span className="slider-mark-label">{label}</span>}
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+    </div>
   )
 })
-
-function SliderThumbs(props) {
-  const { value } = props
-  return (
-    <For each={value}>
-      {(_, index) => (
-        <ChakraSlider.Thumb key={index} index={index}>
-          <ChakraSlider.HiddenInput />
-        </ChakraSlider.Thumb>
-      )}
-    </For>
-  )
-}
 
 const SliderMarks = React.forwardRef(function SliderMarks(props, ref) {
   const { marks } = props
   if (!_optionalChain([marks, 'optionalAccess', (_6) => _6.length])) return null
 
   return (
-    <ChakraSlider.MarkerGroup ref={ref}>
+    <div ref={ref} className="slider-marker-group">
       {marks.map((mark, index) => {
         const value = typeof mark === 'number' ? mark : mark.value
         const label = typeof mark === 'number' ? undefined : mark.label
         return (
-          <ChakraSlider.Marker key={index} value={value}>
-            <ChakraSlider.MarkerIndicator />
-            {label}
-          </ChakraSlider.Marker>
+          <div key={index} className="slider-marker" style={{ left: `${value}%` }}>
+            <div className="slider-marker-indicator" />
+            {label && <span className="slider-marker-label">{label}</span>}
+          </div>
         )
       })}
-    </ChakraSlider.MarkerGroup>
+    </div>
   )
 })

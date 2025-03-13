@@ -1,5 +1,16 @@
-import { Tooltip as ChakraTooltip, Portal } from '@chakra-ui/react'
-import * as React from 'react'
+import * as React from 'react';
+import { Tooltip as BootstrapTooltip, OverlayTrigger } from 'react-bootstrap'; 
+
+
+//function Example() {
+  //return (
+    //<div>
+      //<Tooltip content="This is a tooltip!" showArrow={true}>
+        //<Button variant="primary">Hover over me</Button>
+      //</Tooltip>
+    //</div>
+  //);
+//}
 
 export const Tooltip = React.forwardRef(function Tooltip(props, ref) {
   const {
@@ -11,25 +22,22 @@ export const Tooltip = React.forwardRef(function Tooltip(props, ref) {
     contentProps,
     portalRef,
     ...rest
-  } = props
+  } = props;
 
-  if (disabled) return children
+  if (disabled) return children;
 
   return (
-    <ChakraTooltip.Root {...rest}>
-      <ChakraTooltip.Trigger asChild>{children}</ChakraTooltip.Trigger>
-      <Portal disabled={!portalled} container={portalRef}>
-        <ChakraTooltip.Positioner>
-          <ChakraTooltip.Content ref={ref} {...contentProps}>
-            {showArrow && (
-              <ChakraTooltip.Arrow>
-                <ChakraTooltip.ArrowTip />
-              </ChakraTooltip.Arrow>
-            )}
-            {content}
-          </ChakraTooltip.Content>
-        </ChakraTooltip.Positioner>
-      </Portal>
-    </ChakraTooltip.Root>
-  )
-})
+    <OverlayTrigger
+      {...rest}
+      overlay={
+        <BootstrapTooltip id="tooltip" {...contentProps}>
+          {showArrow && <span className="tooltip-arrow" />}
+          {content}
+        </BootstrapTooltip>
+      }
+      placement="top"
+    >
+      {children}
+    </OverlayTrigger>
+  );
+});

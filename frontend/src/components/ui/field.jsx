@@ -1,22 +1,21 @@
-import { Field as ChakraField } from '@chakra-ui/react'
-import * as React from 'react'
+import * as React from 'react';
+import { Form } from 'react-bootstrap'; // Import necessary components from react-bootstrap
 
 export const Field = React.forwardRef(function Field(props, ref) {
-  const { label, children, helperText, errorText, optionalText, ...rest } =
-    props
+  const { label, children, helperText, errorText, optionalText, ...rest } = props;
+  
   return (
-    <ChakraField.Root ref={ref} {...rest}>
+    <Form.Group ref={ref} {...rest}>
       {label && (
-        <ChakraField.Label>
+        <Form.Label>
           {label}
-          <ChakraField.RequiredIndicator fallback={optionalText} />
-        </ChakraField.Label>
+          {/* Display optionalText if provided */}
+          {optionalText && <span className="text-muted"> ({optionalText})</span>}
+        </Form.Label>
       )}
       {children}
-      {helperText && (
-        <ChakraField.HelperText>{helperText}</ChakraField.HelperText>
-      )}
-      {errorText && <ChakraField.ErrorText>{errorText}</ChakraField.ErrorText>}
-    </ChakraField.Root>
-  )
-})
+      {helperText && <Form.Text className="text-muted">{helperText}</Form.Text>}
+      {errorText && <Form.Text className="text-danger">{errorText}</Form.Text>}
+    </Form.Group>
+  );
+});

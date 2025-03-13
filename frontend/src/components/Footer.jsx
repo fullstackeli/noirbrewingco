@@ -10,4 +10,3 @@ const Footer = () => {
 
 export default Footer;
 
-// css should be added to a styles folder.

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from 'axios';
-import { set } from "mongoose";
 
 const Promo = () => {
     const [formState, setFormState] = useState({
@@ -8,45 +7,73 @@ const Promo = () => {
         name: ''
     });
     const [submitted, setSubmitted] = useState(false);
-    const sendEmail = async (email, name) => {
-        const data = await axios.post('/api/subscribe', {
-            email,
-            name
-        });
-        setSubmitted(true)
-    }
+    const [loading, setLoading] = useState(false); // Track loading state
+    const [error, setError] = useState(null); // Track errors from API
 
+    // API request to send email
+    const sendEmail = async (email, name) => {
+        try {
+            setLoading(true); // Start loading
+            const response = await axios.post('/api/subscribe', { email, name });
+            if (response.status === 200) {
+                setSubmitted(true); // Mark as submitted
+            }
+        } catch (error) {
+            setError('Something went wrong. Please try again later.'); // Handle API errors
+        } finally {
+            setLoading(false); // Stop loading
+        }
+    };
+
+    // Handle form input change
     const handleChange = (e) => {
         setFormState({
             ...formState,
             [e.target.name]: e.target.value
         });
-    }
+    };
 
+    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        const email = formState.email;
-        const name = formState.name;
-        sendEmail(email, name);
-        setFormState({
-            email: '',
-            name: ''
-        });
-    }
+        sendEmail(formState.email, formState.name);
+        setFormState({ email: '', name: '' }); // Clear form state after submission
+    };
 
     return (
         <div>
-            <h2>Sign up and recieve 200% off or something</h2>
-            {
-                submitted ? <p>Thanks for subscribing!</p> : (
-                    <form onSubmit={handleSubmit}>
-                        <input type="email" placeholder="Email" id="email" name="email" value={formState.email} onChange={handleChange} />
-                        <input type="text" placeholder="Name" id="name" name="name" value={formState.name} onChange={handleChange} />
-                        <button type="submit" >Subscribe</button>
-                    </form>
-                )
-            }
+            <h2>Sign up and receive 200% off or something</h2>
+            {submitted ? (
+                <p>Thanks for subscribing!</p>
+            ) : (
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        id="email"
+                        name="email"
+                        value={formState.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        id="name"
+                        name="name"
+                        value={formState.name}
+                        onChange={handleChange}
+                        required
+                    />
+                    <button type="submit" disabled={loading}>Subscribe</button>
+                </form>
+            )}
 
+            {/* Loading Spinner */}
+            {loading && <p>Loading...</p>}
+
+            {/* Display error message */}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     );
 };
