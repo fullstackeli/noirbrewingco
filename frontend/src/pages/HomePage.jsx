@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { FaInstagram, FaFacebookF } from 'react-icons/fa';
 import { Container, Row, Col, Navbar, Nav, Card, Button, Image, Form } from 'react-bootstrap';
+import axios from 'axios';
 
 const Divider = () => (
   <hr style={{ borderTop: '1px solid #e1e1e1', margin: '20px 0' }} />
@@ -13,6 +14,26 @@ const HomePage = () => {
     email: ''
   });
 
+  const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false); // Track loading state
+    const [error, setError] = useState(null); // Track errors from API
+
+  // API request to send email
+  const sendEmail = async (email, name) => {
+    try {
+        setLoading(true); // Start loading
+        const response = await axios.post('/api/subscribe', { email, name });
+        if (response.status === 200) {
+            setSubmitted(true); // Mark as submitted
+        }
+    } catch (error) {
+        console.log(error)
+        setError('Something went wrong. Please try again later.'); // Handle API errors
+    } finally {
+        setLoading(false); // Stop loading
+    }
+};
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -22,6 +43,7 @@ const HomePage = () => {
     e.preventDefault();
     if (formData.name && formData.email) {
       // Handle form submission logic (e.g., send data to backend or API)
+      sendEmail(formData.email, formData.name)
       console.log('Form Submitted:', formData);
     } else {
       alert('Please fill in both the Name and Email fields.');
