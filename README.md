@@ -68,6 +68,7 @@ Takes an email and name and sends a subscription request to the API.
 Parameters:
  - email (string): The user's email.
  - name (string): The user's name.
+   
 Returns:
  - A promise that resolves if the subscription is successful and rejects with an error message if something goes wrong.
 
